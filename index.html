@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uzbek Latin Alphabet Converter: 1995 → 2026</title>
+<style>
+  :root{
+    --bg:#f6f5f1; --card:#ffffff; --ink:#1d2433; --muted:#69708a; --line:#e2e0d8;
+    --accent:#1b6b5a; --accent-ink:#ffffff; --mark:#ffe58f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#14171f; --card:#1c212c; --ink:#e8eaf0; --muted:#98a0b8; --line:#2c3342; --accent:#4fb8a0; --accent-ink:#0c1512; --mark:#6b5a12; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+  h1{font-size:1.6rem;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 22px}
+  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .dir{display:flex;align-items:center;gap:10px;font-weight:600}
+  .pill{padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+  button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .panel h2{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;display:flex;justify-content:space-between;align-items:center}
+  textarea,.out{width:100%;min-height:260px;border:0;outline:0;resize:vertical;background:transparent;color:var(--ink);font:inherit;font-size:1.05rem;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+  .out{overflow:auto}
+  mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
+  .stat{color:var(--muted);font-size:.9rem;margin-top:10px}
+  .table{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .table h2{margin:0 0 10px;font-size:1.05rem}
+  table{border-collapse:collapse;width:100%;max-width:520px}
+  th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:.85rem}
+  td.big{font-size:1.15rem;font-weight:600}
+  ul.notes{margin:14px 0 0;padding-left:20px;color:var(--muted);font-size:.93rem}
+  ul.notes li{margin:4px 0}
+  .src{margin-top:18px;font-size:.85rem;color:var(--muted)}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Uzbek Latin converter</h1>
+  <p class="sub">Convert text from the old (1995) Latin alphabet to the new 2026 alphabet.</p>
+
+  <div class="bar">
+    <div class="dir"><span class="pill" id="fromLabel">Old (1995)</span><span>→</span><span class="pill" id="toLabel">New (2026)</span></div>
+    <button id="swap" title="Swap direction">⇄ Swap</button>
+    <button id="sample">Sample text</button>
+    <button id="clear">Clear</button>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2><span id="inTitle">Old alphabet text</span></h2>
+      <textarea id="input" placeholder="Paste or type text here…" spellcheck="false"></textarea>
+    </div>
+    <div class="panel">
+      <h2><span id="outTitle">New alphabet text</span><button class="primary" id="copy">Copy</button></h2>
+      <div class="out" id="output" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="stat" id="stat"></div>
+
+  <div class="table">
+    <h2>Conversion table</h2>
+    <table>
+      <tr><th>Old (1995)</th><th>New (2026)</th><th>Example</th></tr>
+      <tr><td class="big">Oʻ oʻ</td><td class="big">Ö ö</td><td>koʻl → köl</td></tr>
+      <tr><td class="big">Gʻ gʻ</td><td class="big">Ğ ğ</td><td>gʻalaba → ğalaba</td></tr>
+      <tr><td class="big">Sh sh</td><td class="big">Ş ş</td><td>shahar → şahar</td></tr>
+      <tr><td class="big">Ch ch</td><td class="big">Ç ç</td><td>choy → çoy</td></tr>
+    </table>
+    <ul class="notes">
+      <li>All apostrophe-like marks after o / g are treated the same: <b>oʻ</b>, <b>o‘</b>, <b>o’</b>, <b>o'</b>, <b>o`</b> → <b>ö</b>; same for g.</li>
+      <li>Other letters are unchanged. <b>ng</b> is no longer a separate letter but is still written <b>ng</b>.</li>
+      <li>The apostrophe that separates vowels or marks a glottal stop (ma'no, mas'ul) stays and is normalised to ʼ. A split like <b>s'h</b> or <b>c'h</b> is not read as sh / ch.</li>
+      <li>Changed letters are highlighted in the output.</li>
+      <li>Rules taken from the alphabet page: the 2026 alphabet has 28 letters plus the apostrophe, effective 22 April 2027.</li>
+    </ul>
+    <div class="src">Source: <a href="https://alfavit.uz/alphabet" target="_blank" rel="noopener">alfavit.uz/alphabet</a></div>
+    <div class="src">Made by Sam</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var AP = "[\\u02BB\\u02BC\\u2018\\u2019'`\\u00B4\\u02B9\\u2032]";
+  var S = "\u0001", E = "\u0002"; // change markers
+  var reOG   = new RegExp("([OoGg])" + AP, "g");
+  var reSH   = /([Ss])([Hh])/g;
+  var reCH   = /([Cc])([Hh])/g;
+  var reApos = new RegExp("(\\p{L})" + AP + "(?=\\p{L})", "gu");
+
+  function mark(s){ return S + s + E; }
+
+  function toNew(t){
+    var n = 0;
+    t = t.replace(reOG, function(m, c){
+      n++;
+      return mark({O:"Ö", o:"ö", G:"Ğ", g:"ğ"}[c]);
+    });
+    t = t.replace(reSH, function(m, a, b){ n++; return mark(a === "S" ? "Ş" : "ş"); });
+    t = t.replace(reCH, function(m, a, b){ n++; return mark(a === "C" ? "Ç" : "ç"); });
+    t = t.replace(reApos, function(m, a){ return a + "ʼ"; });
+    return {text: t, count: n};
+  }
+
+  function isUp(ch){ return !!ch && ch !== ch.toLowerCase() && ch === ch.toUpperCase(); }
+
+  function toOld(t){
+    var n = 0;
+    t = t.replace(/[ÖöĞğ]/g, function(m){
+      n++;
+      return mark({"Ö":"Oʻ","ö":"oʻ","Ğ":"Gʻ","ğ":"gʻ"}[m]);
+    });
+    t = t.replace(/[ŞşÇç]/g, function(m, off, str){
+      n++;
+      var up = (m === "Ş" || m === "Ç");
+      var base = (m === "Ş" || m === "ş") ? "sh" : "ch";
+      if(!up) return mark(base);
+      var prev = str[off-1], next = str[off+1];
+      var caps = isUp(prev) || isUp(next);
+      return mark(caps ? base.toUpperCase() : base[0].toUpperCase() + base[1]);
+    });
+    return {text: t, count: n};
+  }
+
+  function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  var forward = true;
+  var $in = document.getElementById("input"), $out = document.getElementById("output"),
+      $stat = document.getElementById("stat"), plain = "";
+
+  function render(){
+    var r = forward ? toNew($in.value) : toOld($in.value);
+    plain = r.text.split(S).join("").split(E).join("");
+    $out.innerHTML = esc(r.text).split(S).join("<mark>").split(E).join("</mark>");
+    $stat.textContent = r.count + " letter" + (r.count === 1 ? "" : "s") + " converted · " + $in.value.length + " characters";
+  }
+
+  function labels(){
+    document.getElementById("fromLabel").textContent = forward ? "Old (1995)" : "New (2026)";
+    document.getElementById("toLabel").textContent   = forward ? "New (2026)" : "Old (1995)";
+    document.getElementById("inTitle").textContent   = (forward ? "Old" : "New") + " alphabet text";
+    document.getElementById("outTitle").textContent  = (forward ? "New" : "Old") + " alphabet text";
+  }
+
+  $in.addEventListener("input", render);
+  document.getElementById("swap").addEventListener("click", function(){
+    var prev = plain; forward = !forward; labels(); $in.value = prev; render();
+  });
+  document.getElementById("clear").addEventListener("click", function(){ $in.value = ""; render(); $in.focus(); });
+  document.getElementById("sample").addEventListener("click", function(){
+    forward = true; labels();
+    $in.value = "O‘zbekiston — g‘alaba, shahar, choy, to’y, koʻl, G‘ofur, SHAHAR, ma’no, mas’ul, tong.";
+    render();
+  });
+  document.getElementById("copy").addEventListener("click", function(){
+    var b = this, old = b.textContent;
+    function done(ok){ b.textContent = ok ? "Copied ✓" : "Select & copy"; setTimeout(function(){ b.textContent = old; }, 1400); }
+    try{
+      navigator.clipboard.writeText(plain).then(function(){ done(true); }, function(){ fallback(); });
+    }catch(e){ fallback(); }
+    function fallback(){
+      try{
+        var ta = document.createElement("textarea"); ta.value = plain; document.body.appendChild(ta);
+        ta.select(); var ok = document.execCommand("copy"); document.body.removeChild(ta); done(ok);
+      }catch(e){ done(false); }
+    }
+  });
+
+  $in.value = "O‘zbekiston — g‘alaba, shahar, choy, to’y, koʻl, G‘ofur, SHAHAR, ma’no, mas’ul, tong.";
+  render();
+  window.__conv = {toNew: toNew, toOld: toOld};
+})();
+</script>
+</body>
+</html>
