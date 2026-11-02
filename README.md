@@ -25,4 +25,4 @@ All apostrophe-like marks after o / g (`ʻ ʼ ‘ ’ ' `` ` ```) are treated th
 - `ng` is no longer a separate letter but is still written `ng`.
 - A split like `s'h` or `c'h` is not read as sh / ch.
 
-Made by Sam.
+Made by Sam. (tg: no_arrogance)
